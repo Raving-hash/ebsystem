@@ -1,0 +1,27 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+  <div class="ibox-content">
+    <div class="form-horizontal" id="pollutionTypeInfoForm">
+
+      <input type="hidden" id="id" value="${pollutionType.id}">
+
+      <div class="row">
+        <div class="col-sm-6">
+          <#input id="name" name="污染类型名" underline="true" value="${pollutionType.name}" />
+          <#input id="unit" name="单位" underline="true" value="${pollutionType.unit}" />
+          <#input id="limitvalue" name="阈值" underline="true" value="${pollutionType.limitvalue}" />
+        </div>
+      </div>
+
+      <div class="row btn-group-m-t">
+        <div class="col-sm-10">
+          <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="PollutionTypeInfoDlg.editSubmit()"/>
+          <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="PollutionTypeInfoDlg.close()"/>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script src="${ctxPath}/static/modular/system/pollution_type/pollution_type_info.js"></script>
+@}

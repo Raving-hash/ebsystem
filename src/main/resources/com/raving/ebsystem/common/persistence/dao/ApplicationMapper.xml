@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.raving.ebsystem.common.persistence.dao.ApplicationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.raving.ebsystem.common.persistence.model.Application">
+        <id column="id" property="id" />
+        <result column="device_id" property="deviceId" />
+        <result column="apply_time" property="applyTime" />
+        <result column="type" property="type" />
+        <result column="status" property="status" />
+        <result column="user" property="user" />
+        <result column="audit_user" property="auditUser" />
+        <result column="edit_time" property="editTime" />
+        <result column="audit_time" property="auditTime" />
+    </resultMap>
+
+    <update id="setStatus">
+        update t_application
+        set status = #{status}
+        where id = #{applicationId}
+    </update>
+
+    <select id="getApplicationsByStatus" resultType="map">
+        select * from t_application
+        where status = #{status}
+        order by apply_time DESC
+    </select>
+
+    <select id="getApplicationsByDeviceId" resultType="map">
+        select * from t_application
+        where device_id = #{deviceId}
+        order by apply_time DESC
+    </select>
+
+    <select id="getApplicationsByUser" resultType="map">
+        select * from t_application
+        where user = #{user}
+        order by apply_time DESC
+        limit 0, 100
+    </select>
+
+    <select id="getApplications" resultType="map">
+        select * from t_application
+        where 1 = 1
+        <if test="deviceId != null">
+            and device_id = #{deviceId}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="user != null">
+            and user = #{user}
+        </if>
+        <if test="type != null">
+            and type = #{type}
+        </if>
+        <if test="auditUser != null">
+            and audit_user = #{auditUser}
+        </if>
+        order by apply_time DESC
+        limit 0, 1000
+    </select>
+
+
+</mapper>

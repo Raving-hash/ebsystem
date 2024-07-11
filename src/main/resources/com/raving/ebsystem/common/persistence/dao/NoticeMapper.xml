@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.raving.ebsystem.common.persistence.dao.NoticeMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.raving.ebsystem.common.persistence.model.Notice">
+		<id column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="type" property="type" />
+		<result column="content" property="content" />
+		<result column="createtime" property="createtime" />
+		<result column="creater" property="creater" />
+	</resultMap>
+
+    <select id="list" resultType="map">
+        select * from sys_notice
+		where 1 = 1
+        <if test="condition != null and condition != ''">
+            and title like CONCAT('%',#{condition},'%') or content like CONCAT('%',#{condition},'%')
+        </if>
+		and type != 10
+        order by createtime DESC
+		limit 0, 30
+    </select>
+
+	<select id="selectAllBefore" resultType="map">
+		select * from sys_notice
+		where createtime >= #{time}
+		and type != 10
+		order by createtime DESC
+	</select>
+
+	<select id="selectAllByType" resultType="map">
+		select * from sys_notice
+		where 1 = 1
+		<if test="type != null and type != -1">
+			and type = #{type}
+		</if>
+		order by createtime DESC
+		limit 0, 30
+	</select>
+
+</mapper>

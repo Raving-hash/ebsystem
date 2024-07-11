@@ -1,0 +1,30 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+  <div class="ibox-content">
+    <div class="form-horizontal" id="applicationInfoForm">
+
+      <input type="hidden" id="id" value="${application.id}">
+
+      <div class="row">
+        <div class="col-sm-6">
+          <#input id="deviceId" name="设备ID" underline="true" value="${application.deviceId}" type="number"/>
+          <#SelectCon id="type" name="申请类型" value="${application.type}">
+            <option value="0">设备申请</option>
+            <option value="1">设备维护</option>
+            <option value="2">设备归还</option>
+          </#SelectCon>
+        </div>
+      </div>
+
+      <div class="row btn-group-m-t">
+        <div class="col-sm-10">
+          <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ApplicationInfoDlg.editSubmit()"/>
+          <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ApplicationInfoDlg.close()"/>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script src="${ctxPath}/static/modular/system/application/application_info.js"></script>
+@}

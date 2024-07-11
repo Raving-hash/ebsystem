@@ -1,0 +1,55 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>申请审核</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <#input id="user" name="申请人ID" underline="true" type="number"/>
+                            </div>
+                            <div class="col-sm-4">
+                                <#input id="auditUser" name="审核人ID" underline="true" type="number"/>
+                            </div>
+                            <div class="col-sm-4">
+                                <#input id="deviceId" name="设备ID" underline="true" type="number"/>
+                            </div>
+                            <div class="col-sm-5">
+                                <#SelectCon id="type" name="申请类型" >
+                                    <option value="0">设备申请</option>
+                                    <option value="1">设备维护</option>
+                                    <option value="2">设备归还</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-5">
+                                <#SelectCon id="status" name="状态" >
+                                    <option value="0">获取未处理</option>
+                                    <option value="1">获取已同意</option>
+                                    <option value="2">获取已拒绝</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-2">
+                                <#button btnCss="info" name="搜索" id="ensure" icon="fa-check" clickFun="Application.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="ApplicationTableToolbar" role="group">
+                            @if(shiro.hasPermission("/application/getAudit")){
+                            <#button name="同意" icon="fa-plus" clickFun="Application.acceptApplication()" />
+                            @}
+                            @if(shiro.hasPermission("/application/getAudit")){
+                            <#button name="拒绝" icon="fa-edit" clickFun="Application.refuseApplication()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="applicationTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/application/application_apply.js"></script>
+@}

@@ -1,0 +1,44 @@
+@layout("/common/_container.html"){
+<div class="container-fluid" style="padding: 0 !important;">
+	<div class="row">
+		<style>
+			/* 设置myChart块的样式 */
+			#myChart {
+				position: relative; /* 将myChart块置于页面的左上方 */
+				margin-left: 20px;
+				margin-bottom: 20px;
+				padding: 20px;
+				height: 300px;
+			}
+
+			#rankings{
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				height: 300px;
+				margin-bottom: 40px;
+			}
+		</style>
+		@if(shiro.hasPermission("/notice/hello")){
+			<div id="myChart"></div>
+			<div id="rankings"></div>
+		@}
+
+
+		<div class="col-sm-12">
+			@for(notice in noticeList){
+				<div class="alert alert-success alert-dismissable">
+					<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+					${notice.content}
+				</div>
+			@}
+		</div>
+	</div>
+</div>
+@}
+
+@if(shiro.hasPermission("/notice/hello")){
+	<script src="https://d3js.org/d3.v7.min.js"></script>
+	<script src="${ctxPath}/static/modular/system/warn_water/warn_water.js"></script>
+@}
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.raving.ebsystem.common.persistence.dao.DeviceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.raving.ebsystem.common.persistence.model.Device">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="dept" property="dept" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="repair_time" property="repairTime" />
+        <result column="repair_count" property="repairCount" />
+    </resultMap>
+
+    <select id="list" resultType="map">
+        select * from t_device
+        <if test="condition != null and condition != ''">
+            where name like CONCAT('%',#{condition},'%') or dept like CONCAT('%',#{condition},'%')
+        </if>
+        order by create_time DESC
+    </select>
+    
+    <update id="setStatus">
+        update t_device
+        set status = #{status}
+        where id = #{deviceId}
+    </update>
+    
+    <update id="setDept">
+        update t_device
+        set dept = #{deptId}
+        where id = #{deviceId}
+    </update>
+
+    <select id="getDevicesByStatus" resultType="map">
+        select * from t_device
+        where status = #{status}
+        order by create_time DESC
+    </select>
+
+</mapper>

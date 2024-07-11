@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.raving.ebsystem.common.persistence.dao.PollutionTypeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.raving.ebsystem.common.persistence.model.PollutionType">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="unit" property="unit" />
+        <result column="limit" property="limit" />
+    </resultMap>
+
+    <select id="list" resultType="map">
+        select * from t_pollution_type
+        where 1 = 1
+        <if test="condition != null and condition != ''">
+            AND name like CONCAT('%',#{condition},'%')
+        </if>
+        order by id ASC
+    </select>
+
+    <select id="getPollutionTypeByName" resultType="com.raving.ebsystem.common.persistence.model.PollutionType">
+        select * from t_pollution_type
+        where name = #{pollutionTypeName}
+    </select>
+
+    <select id="getPollutionTypeById" resultType="com.raving.ebsystem.common.persistence.model.PollutionType">
+        select * from t_pollution_type
+        where id = #{pollutionTypeId}
+    </select>
+
+    <insert id="insertUseGeneratedKeys" parameterType="com.raving.ebsystem.common.persistence.model.PollutionType">
+        insert into t_pollution_type(name, unit, limitvalue)
+        values(#{pollutionType.name}, #{pollutionType.unit}, #{pollutionType.limitvalue})
+    </insert>
+
+</mapper>
